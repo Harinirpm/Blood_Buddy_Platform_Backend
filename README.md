@@ -22,7 +22,7 @@ The **Blood Buddy Platform** is a web-based application designed to connect bloo
 | API Format | REST               |
 
 ##  Project Structure
-src/ <br>
+`src`/ <br>
 ├── `main/`<br>
 │   ├── `java/com/bloodbuddy/`<br>
 │   │   ├── `config/`         # Configuration files <br>
@@ -36,4 +36,17 @@ src/ <br>
 │   └── `resources/` <br>
 │       ├── `application.properties`   # Spring Boot application configuration <br>
 │       └── `static/`                  # Static resources (HTML, CSS, JS, images) <br>
+
+##  Setup Instructions
+### Clone the repository:
+`git clone https://github.com/yourusername/blood-buddy-platform.git` <br>
+`cd blood-buddy-platform` <br>
+
+###  Configure database in application.properties:
+`spring.datasource.url=jdbc:mysql://localhost:3306/bloodbuddy` <br>
+`spring.datasource.username=root` <br>
+`spring.datasource.password=yourpassword` <br>
+
+### Run the application:
+`mvn spring-boot:run` <br>
 
