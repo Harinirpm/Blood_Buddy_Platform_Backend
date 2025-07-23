@@ -14,7 +14,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Blood Request Fulfilled");
-        message.setText("✅ The following request is now fulfilled:\n\n" + requestDetails);
+        message.setText("The following request is now fulfilled:\n\n" + requestDetails);
         mailSender.send(message);
     }
     public void sendEmail(String toEmail, String subject, String body) {

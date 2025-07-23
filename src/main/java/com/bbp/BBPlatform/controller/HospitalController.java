@@ -101,8 +101,6 @@ public class HospitalController {
 	     record.setDonatedUnits(donatedUnits);
 	     record.setDonatedAt(LocalDateTime.now());
 	     donationRecordRepo.save(record);
-
-	     
 	     return ResponseEntity.ok("Donation confirmed. Remaining units: " + updatedQuantity);
 	 }
 

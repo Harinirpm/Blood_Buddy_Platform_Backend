@@ -65,17 +65,17 @@ public class DonarsController {
 	        BloodRequest request = bloodRequestRepo.findById(requestId)
 	                .orElseThrow(() -> new RuntimeException("Request not found"));
 
-	        // Optional: prevent duplicate intent raise
+	        //preventing duplicate blood donation
 	        if (donationRecordRepo.existsByDonorAndRequest(donor, request)) {
 	            return ResponseEntity.badRequest().body("You’ve already raised intent to donate for this request.");
 	        }
 
-	        // Just create an intent record with 0 units for now
+	        // create an intent record with 0 units for now
 	        DonationRecord intent = new DonationRecord();
 	        intent.setDonor(donor);
 	        intent.setRequest(request);
-	        intent.setDonatedUnits(0); // quantity not donated yet
-	        intent.setDonatedAt(null); // will be updated later on confirmation
+	        intent.setDonatedUnits(0); 
+	        intent.setDonatedAt(null); 
 	        donationRecordRepo.save(intent);
 
 	        return ResponseEntity.ok("Intent to donate has been raised. Please visit the hospital to complete donation.");
