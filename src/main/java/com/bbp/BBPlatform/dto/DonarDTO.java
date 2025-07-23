@@ -1,4 +1,4 @@
-package com.bbp.BBPlatform.payload;
+package com.bbp.BBPlatform.dto;
 
 
 public class DonarDTO {
