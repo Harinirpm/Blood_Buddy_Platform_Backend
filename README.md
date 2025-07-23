@@ -27,6 +27,8 @@ The **Blood Buddy Platform** is a web-based application designed to connect bloo
 │   ├── `java/com/bloodbuddy/`<br>
 │   │   ├── `config/`         # Configuration files <br>
 │   │   ├── `controller/`       # REST API controllers  <br>
+│   │   ├── `dto/`               #data trasfer object <br>
+│   │   ├── `exception/`         #handling global exception <br>
 │   │   ├── `service/`          # Business logic layer <br>
 │   │   ├──  `model/`            # Entity classes and data models <br>
 │   │   ├── `repository/`       # Spring Data JPA repositories <br>
