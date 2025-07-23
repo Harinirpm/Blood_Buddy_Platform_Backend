@@ -44,9 +44,10 @@ public class SecurityConfig {
 				.cors(Customizer.withDefaults())
 				.csrf(Customizer -> Customizer.disable())
 				.authorizeHttpRequests(request -> request
-						.requestMatchers("/register", "/auth/**").permitAll()
+						.requestMatchers("/register/**", "/auth/**").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
-						.requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
+						.requestMatchers("/donar/**").hasAnyRole("ADMIN","DONAR","HOSPITAL")
+						.requestMatchers("/hospital/**").hasAnyRole("ADMIN","HOSPITAL")
 						.anyRequest().authenticated())
 				.formLogin(AbstractHttpConfigurer::disable)
 				.httpBasic(Customizer.withDefaults())

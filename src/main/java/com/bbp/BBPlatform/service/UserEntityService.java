@@ -51,6 +51,7 @@ public class UserEntityService {
 		
 		System.out.println("Email from request: " + email);
 	    System.out.println("Raw password from request: " + password);
+	    System.out.println("authenticated Role "+user.getRole());
 	    System.out.println("Encoded password in DB: " + user.getPassword());
 	    System.out.println("Password match result: " + passwordEncoder.matches(password, user.getPassword()));
 

@@ -1,7 +1,12 @@
 package com.bbp.BBPlatform.security;
 
+import java.util.Base64;
+import java.util.Date;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.stereotype.Service;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import com.bbp.BBPlatform.model.UserEntity;
 
@@ -10,16 +15,16 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
 @Service
 public class JwtUtilBBP{
 	
-	private static final SecretKey SECRET_KEY = new SecretKeySpec("4w2IsNb1HnxwhJ8Vqlpivd675lr9VqZcCvF3NlD/LitcwOj0uB5jlBG91JncPYWrUSGVjMYyCdip/i3JmtfGtw==".getBytes(StandardCharsets.UTF_8),"HmacSHA512");
+//	private static final SecretKey SECRET_KEY = new SecretKeySpec("4w2IsNb1HnxwhJ8Vqlpivd675lr9VqZcCvF3NlD/LitcwOj0uB5jlBG91JncPYWrUSGVjMYyCdip/i3JmtfGtw==".getBytes(StandardCharsets.UTF_8),"HmacSHA512");
+	private static final String SECRET_KEY_BASE64 = "4w2IsNb1HnxwhJ8Vqlpivd675lr9VqZcCvF3NlD/LitcwOj0uB5jlBG91JncPYWrUSGVjMYyCdip/i3JmtfGtw==";
+
+	private static final SecretKey SECRET_KEY = new SecretKeySpec(
+	    Base64.getDecoder().decode(SECRET_KEY_BASE64),
+	    "HmacSHA512"
+	);
 	private static final long EXPIRATION_TIME = 1000 * 60 * 60;
 	
 	public String generateToken(UserEntity user) {
@@ -29,7 +34,7 @@ public class JwtUtilBBP{
 				       .claim("role","ROLE_"+user.getRole().toUpperCase())
 				       .setIssuedAt(new Date())
 				       .setExpiration(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
-				       .signWith(SECRET_KEY,SignatureAlgorithm.HS512)
+				       .signWith(SECRET_KEY, SignatureAlgorithm.HS512)
 				       .compact();
 		System.out.println("Generated Token "+token);
 		return token;

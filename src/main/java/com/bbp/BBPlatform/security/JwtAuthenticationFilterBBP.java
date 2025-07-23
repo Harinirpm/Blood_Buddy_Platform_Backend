@@ -1,8 +1,12 @@
 package com.bbp.BBPlatform.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -32,6 +36,7 @@ public class JwtAuthenticationFilterBBP extends OncePerRequestFilter{
 		String authHeader = request.getHeader("Authorization");
 		if(authHeader == null || !authHeader.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
+			return;
 		}
 		String token = authHeader.substring(7);
 		String userEmail = jwtUtil.getEmailFromToken(token);
@@ -43,10 +48,13 @@ public class JwtAuthenticationFilterBBP extends OncePerRequestFilter{
 			if(!jwtUtil.isTokenExpired(token)) {
 				//extarct role from the token
 				String role = jwtUtil.getRoleFromToken(token);
-				System.out.println("Role :+ "+role);
+				System.out.println("Role : "+role);
 				//create authenticationToken
+				List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
+				authorities.add(new SimpleGrantedAuthority(role));
+
 				UsernamePasswordAuthenticationToken authToken = new 
-						UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+						UsernamePasswordAuthenticationToken(userDetails,null,authorities );
 				
 				//attach meta data about the http request
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
